@@ -1,0 +1,149 @@
+button {
+  color: white;
+  border-radius: 5px;
+  width: 70px;
+  height: 30px;
+  border: none;
+}
+
+#delete_button {
+  background-color: red;
+}
+
+.user_detail_page #add_button,
+.post_detail_page #edit_button,
+.user_detail_page #edit_button,
+#list_of_posts #add_button {
+  background-color: rgb(0, 98, 255);
+}
+
+#title_and_content #cancel_button {
+  background-color: rgb(6, 174, 174);
+}
+
+#title_and_content #add_button,
+.post_edit_page #edit_button {
+  background-color: green;
+}
+
+.post_detail_page #cancel_button,
+.post_edit_page #cancel_button,
+.edit_user_page #cancel_button {
+  background-color: white;
+  color: rgb(0, 98, 255);
+  border: solid rgb(0, 98, 255);
+}
+
+#save_button {
+  background-color: green;
+}
+
+body {
+  width: 500px;
+  /* display: flex;
+  justify-content: center; */
+}
+
+html {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  object-fit: cover;
+}
+
+.user_detail_page {
+  display: flex;
+}
+
+.user_detail_page h1 {
+  margin-left: 20px;
+  margin-top: 0;
+}
+
+.user_detail_page #edit_button {
+  margin-left: -200px;
+  margin-top: 40px;
+  scale: 70%;
+}
+
+.user_detail_page #delete_button {
+  margin-left: -140px;
+  margin-top: 40px;
+  scale: 70%;
+}
+
+#list_of_posts {
+  margin-left: 220px;
+  margin-top: -130px;
+}
+
+.edit_user_page {
+  position: relative;
+}
+
+.edit_user_page .form-row input {
+  position: absolute;
+  right: 0;
+  width: 400px;
+}
+
+.edit_user_page #save_button {
+  position: absolute;
+  right: 0;
+}
+
+.edit_user_page a {
+  position: absolute;
+  right: 80px;
+}
+
+.users_listing_page a button,
+.new_user_page #add_button {
+  background-color: grey;
+}
+
+#title_and_content {
+  position: relative;
+}
+
+#title_and_content input {
+  position: absolute;
+  right: 0;
+  width: 400px;
+}
+
+#title_and_content #new_post_buttons {
+  position: absolute;
+  right: 0;
+}
+
+#post_detail_buttons form {
+  display: flex;
+  margin-left: 150px;
+  margin-top: -30px;
+}
+
+.post_edit_page {
+  position: relative;
+}
+
+.post_edit_page input {
+  position: absolute;
+  right: 0;
+  width: 400px;
+}
+
+.post_edit_page #save_button {
+  position: absolute;
+  right: 0;
+}
+
+.post_edit_page a {
+  position: absolute;
+  right: 80px;
+}

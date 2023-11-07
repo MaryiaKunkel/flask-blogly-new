@@ -1,0 +1,25 @@
+<!-- new_user.html -->
+
+{% extends 'base.html' %}
+{% block title %}Edit post {{post.title}}{% endblock %}
+{% block content %}
+<div class="post_edit_page" methods="[POST]">
+    <form  action='/posts/{{post.id}}/edit' method="POST">
+        <h1>Edit Post</h1>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="{{post.title}}"></br></br>
+
+        <label for="post_content">Post Content</label>
+        <input type="text" name="content" id="content" value="{{post.content}}"></br></br>
+        
+        <button id="save_button">Save</button>
+    </form>
+    <a href='/users/{{post.id}}'>
+        <button id="cancel_button">Cancel</button>
+    </a>
+</div>
+
+
+
+{% endblock %}
+

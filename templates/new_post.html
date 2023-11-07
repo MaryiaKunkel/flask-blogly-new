@@ -1,0 +1,25 @@
+<!-- new_post.html -->
+
+{% extends 'base.html' %}
+{% block title %}New Post{% endblock %}
+{% block content %}
+
+    <form  action='/users/{{user.id}}/posts/new' method="POST">
+        <h1>Add Post for {{user.first_name}} {{user.last_name}}</h1>
+        <div id="title_and_content">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title"></br></br>
+            <label for="content">Content</label>
+            <input type="text" name="content" id="content"></br></br>
+            <div id="new_post_buttons">
+                <a href="/users/{{user.id}}">
+                    <button id="cancel_button">Cancel</button>
+                </a>
+                <button id="add_button">Add</button>
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}
+

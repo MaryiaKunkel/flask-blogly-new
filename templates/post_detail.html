@@ -1,0 +1,24 @@
+<!-- post_detail.html -->
+{% extends 'base.html' %}{% block title %} {{post.title}} {% endblock %}{% block
+content %}
+<div class="post_detail_page">
+  <h1 id="name">{{post.title}}</h1>
+
+  <p>{{post.content}}</p>
+
+  <p><em>By {{user.first_name}} {{user.last_name}}</em></p>
+  <div id="post_detail_buttons">
+    <a href="/users/{{user.id}}">
+      <button id="cancel_button">Cancel</button>
+    </a>
+
+    <a href="/posts/{{post.id}}/edit">
+      <button id="edit_button">Edit</button>
+    </a>
+
+    <form action="/posts/{{post.id}}/delete" method="POST">
+      <button id="delete_button">Delete</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
