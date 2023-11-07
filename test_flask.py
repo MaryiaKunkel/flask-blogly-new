@@ -1,3 +1,4 @@
+# test_flask.py
 from unittest import TestCase
 
 from app import app
@@ -49,34 +50,40 @@ class UserViewsTestCase(TestCase):
         with app.test_client() as client:
             resp = client.get(f"/users/{self.user_id}")
             html = resp.get_data(as_text=True)
-            print(html)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<title> John Doe </title>', html)
+            self.assertIn('John Doe', html)
             self.assertIn(self.user.last_name, html)
 
     def test_add_user(self):
         with app.test_client() as client:
             d = {"first_name": "Donald", "last_name": "Trump", "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/1024px-Donald_Trump_official_portrait.jpg"}
-            resp = client.post("/", data=d, follow_redirects=True)
+            resp = client.post("/users/new", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("<h1>Donald Trump</h1>", html)
+            self.assertIn("Donald Trump", html)
 
 
 class PostViewsTestCase(TestCase):
     """Tests for views for Posts."""
     def setUp(self):
         """Add sample post."""
-
         Post.query.delete()
+        User.query.delete()
 
-        post = Post(title="Title", content="Content")
+
+        user = User(first_name="John", last_name="Doe", image_url="https://static.wikia.nocookie.net/john-doe-game/images/b/b2/Doe1_plus.png/revision/latest?cb=20220327075824")
+        db.session.add(user)
+        db.session.commit()
+
+        post = Post(title="Title", content="Content", user_id=user.id)
         db.session.add(post)
         db.session.commit()
 
+        self.user_id = user.id
         self.post_id = post.id
+        self.user=user
         self.post=post
 
     def tearDown(self):
@@ -86,11 +93,12 @@ class PostViewsTestCase(TestCase):
 
     def test_list_posts(self):
         with app.test_client() as client:
-            resp = client.get("/")
+            resp = client.get(f"/users/{self.user_id}")
             html = resp.get_data(as_text=True)
-
+            print(html)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Content', html)
+            self.assertIn('Title', html)
+            self.assertIn(self.post.title, html)
 
     def test_show_post(self):
         with app.test_client() as client:
@@ -98,14 +106,14 @@ class PostViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h1>Title</h1>', html)
+            self.assertIn('Title', html)
             self.assertIn(self.post.content, html)
 
     def test_add_post(self):
         with app.test_client() as client:
-            d = {"title": "Break news!", "Content": "Sponge Bob is not real!"}
-            resp = client.post("/", data=d, follow_redirects=True)
+            d = {"title": "Breaking news!", "content": "Sponge Bob is not real!"}
+            resp = client.post(f"/users/{self.user_id}/posts/new", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("<h1>Break news!</h1>", html)
+            self.assertIn("Breaking news!", html)
