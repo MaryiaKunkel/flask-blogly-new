@@ -1,6 +1,6 @@
 '''Seed file to make sample data for users db'''
 
-from models import User, Post, db
+from models import User, Post, db, Tag, PostTag
 from app import app
 
 # Create all tables
@@ -21,13 +21,20 @@ jolie_post_2=Post(title='Hello again', content='I am greeting you the second tim
 depp_post_1=Post(title='Bye-bye', content='Firewall!', users=johnny_depp)
 depp_post_2=Post(title='Bye-bye again', content='Firewall my firend!', users=johnny_depp)
 
-# Add new objects to session, so they'll persist
 db.session.add(johnny_depp)
 db.session.add(angelina_jolie)
 
 db.session.commit()
 
-db.session.add(jolie_post)
-db.session.add(depp_post)
+db.session.add(jolie_post_1)
+db.session.add(jolie_post_2)
+db.session.add(depp_post_1)
+db.session.add(depp_post_2)
 
+tag_1=Tag(id=1, name='#jolieisthebest', tagging=[PostTag(post_id=1, tag_id=1)])
+tag_2=Tag(id=2, name='#bestactor', tagging=[PostTag(post_id=1, tag_id=1), PostTag(post_id=2, tag_id=1)])
+tag_3=Tag(id=3, name='#johnnyweloveyou', tagging=[PostTag(post_id=2, tag_id=2)])
+tag_4=Tag(id=4, name='#iloveyourmovies', tagging=[PostTag(post_id=2, tag_id=2), PostTag(post_id=1, tag_id=2)])
+
+db.session.add_all([tag_1, tag_2, tag_3, tag_4])
 db.session.commit()

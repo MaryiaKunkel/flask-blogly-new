@@ -37,6 +37,10 @@ class Post(db.Model):
 
     users=db.relationship('User', backref='posts')
 
+    tagging=db.relationship('PostTag', backref='post')
+
+    tags=db.relationship('Tag', secondary='posts_tags', backref='posts')
+
     def __repr__(self):
         return f'<Post id={self.id}, title "{self.title}", content "{self.content}", created_at {self.created_at}>'
     
@@ -48,16 +52,20 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
+    posts = db.relationship('Post', secondary='posts_tags', backref='tags')
+
+    tagging=db.relationship('PostTag', backref='tag')
 
 class PostTag(db.Model):
-    __tablename__='post_tags'
+    __tablename__='posts_tags'
 
     post_id=db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
     tag_id=db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
 
-    posts=db.relationship('Post', backref='post_tags')
-    tags=db.relationship('Tag', backref='post_tags')
-    
+    def __init__(self, post_id, tag_id):
+        self.post_id=post_id
+        self.tag_id=tag_id
+
 def get_directory():
     all_posts=Post.query.all()
 

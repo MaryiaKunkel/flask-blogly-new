@@ -1,0 +1,25 @@
+<!-- user_listing.html -->
+
+{% extends 'base.html' %} {% block title %}Tag Details{% endblock %} {% block
+content %}
+
+<div class="tag_detail">
+  <form action="/tags/{{tag.id}}" , method="POST">
+    <h1>{{tag.name}}</h1>
+    <ul>
+      {% for post in posts %}
+      <li>
+        <a href="/posts/{{post.id}}">{{post.title}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <a href="/tags/{{tag.id}}/edit">
+      <button id="edit_button">Edit</button>
+    </a>
+
+    <button id="delete_button">Delete</button>
+  </form>
+</div>
+
+{% endblock %}

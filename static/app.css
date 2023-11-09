@@ -13,7 +13,9 @@ button {
 .user_detail_page #add_button,
 .post_detail_page #edit_button,
 .user_detail_page #edit_button,
-#list_of_posts #add_button {
+#list_of_posts #add_button,
+.tags_listing #add_button,
+.tag_detail #edit_button {
   background-color: rgb(0, 98, 255);
 }
 
