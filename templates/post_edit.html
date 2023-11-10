@@ -11,6 +11,13 @@
 
         <label for="post_content">Post Content</label>
         <input type="text" name="content" id="content" value="{{post.content}}"></br></br>
+
+        {% for tag in tags %}
+            <input type="checkbox" name="tags" value="{{ tag.id }}" {% if tag in post.tags %}checked{% endif %}>
+            <label for="tags">{{ tag.name }}</label><br>
+        {% endfor %}
+    
+    
         
         <button id="save_button">Save</button>
     </form>

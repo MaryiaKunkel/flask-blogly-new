@@ -104,13 +104,15 @@ def post_detail_page(post_id):
     '''Show a post'''
     post=Post.query.get_or_404(post_id)
     user=User.query.get_or_404(post.user_id)
-    return render_template('post_detail.html', post=post, user=user)
+    tags=post.tags
+    return render_template('post_detail.html', post=post, user=user, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):
     '''Show form to edit a post'''
     post=Post.query.get_or_404(post_id)
-    return render_template('post_edit.html', post=post)
+    tags=Tag.query.all()
+    return render_template('post_edit.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def save_edited_post(post_id):
@@ -118,6 +120,8 @@ def save_edited_post(post_id):
     post=Post.query.get_or_404(post_id)    
     post.title = request.form.get('title')
     post.content = request.form.get('content')
+    tags_list=request.form.getlist('tags')
+    post.tags=Tag.query.filter(Tag.id.in_(tags_list)).all()
 
     db.session.commit()
 

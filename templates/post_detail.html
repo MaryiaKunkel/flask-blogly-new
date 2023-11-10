@@ -7,6 +7,20 @@ content %}
   <p>{{post.content}}</p>
 
   <p><em>By {{user.first_name}} {{user.last_name}}</em></p>
+
+  <div id="list_of_tags">
+    <h3>Tags:</h3>
+    <ul id="tag_list">
+      {% for tag in tags %}
+      <li>
+        <a href="/tags/{{tag.id}}">
+          <button id="tag_button">{{tag.name}}</button>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
   <div id="post_detail_buttons">
     <a href="/users/{{user.id}}">
       <button id="cancel_button">Cancel</button>
